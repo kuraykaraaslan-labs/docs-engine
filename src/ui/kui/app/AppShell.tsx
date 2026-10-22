@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/app/AppShell.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/app/AppShell.tsx @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { cn } from '../libs/utils/cn';
 import { Drawer } from '../ui/Drawer';
@@ -88,6 +88,9 @@ export function AppShell({
             header={mobileSidebarHeader}
             side="left"
             className="w-72"
+            // A sidebar link that navigates client-side (AppSidebar renderLink) leaves the page
+            // mounted, so the drawer closes on the route change instead of a reload.
+            closeOnRouteChange
           >
             <div className="-mx-4 -my-4 h-[calc(100%+2rem)] flex flex-col">{sidebar}</div>
           </Drawer>

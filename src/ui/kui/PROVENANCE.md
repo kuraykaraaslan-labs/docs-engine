@@ -1,6 +1,6 @@
 # Provenance
 
-Copied from kui-react (`$KUIREACT_ROOT`) at `6d1138d` by `scripts/vendor-kui.mjs`.
+Copied from kui-react (`$KUIREACT_ROOT`) at `fa87237` by `scripts/vendor-kui.mjs`.
 kui-react is the design source of truth: change a component there, then run `npm run vendor:kui`.
 Imports of `@/libs/*` and `@/modules/*` are rewritten to relative paths; nothing else is changed.
 

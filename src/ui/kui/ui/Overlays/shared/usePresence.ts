@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/ui/Overlays/shared/usePresence.ts @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/ui/Overlays/shared/usePresence.ts @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { useEffect, useState } from 'react';
 

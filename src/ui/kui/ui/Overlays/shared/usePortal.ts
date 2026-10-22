@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/ui/Overlays/shared/usePortal.ts @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/ui/Overlays/shared/usePortal.ts @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { useCallback, useSyncExternalStore } from 'react';
 

@@ -8,6 +8,14 @@ All notable changes to this project will be documented here. Format follows
 
 ### Changed
 
+- Sidebars nest: categories below the top level are nested kui `AppSidebar` items with
+  disclosure toggles instead of being flattened into their group.
+- Sidebar links navigate client-side through `next/link`; `DocsShell`'s
+  `clientNavigation={false}` restores plain anchors.
+- The phone-only navbar links in the sidebar header hide from `md` up through
+  `AppSidebar`'s `headerClassName`, replacing a `matchMedia` workaround.
+- kui components re-vendored at kui-react 26e1d97 (AppSidebar nesting, `renderLink`,
+  slot wrapper classes).
 - `collections` is optional (default `[]`), for hosts that use only the shell and the
   markdown pipeline.
 

@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/app/AppTopBar.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/app/AppTopBar.tsx @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { Fragment, isValidElement } from 'react';
 import { cn } from '../libs/utils/cn';

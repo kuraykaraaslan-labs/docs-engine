@@ -38,5 +38,7 @@ sidebars: {
 An unknown doc id fails the build. Previous / next links follow the sidebar order.
 
 > [!NOTE]
-> kui's `AppSidebar` has one level of grouping. A top-level category becomes a
-> collapsible group; deeper categories are flattened into it in reading order.
+> A top-level category becomes a collapsible group of kui's `AppSidebar`; deeper
+> categories nest inside it, behind a disclosure toggle. The branch holding the
+> current page opens by itself, and sidebar links navigate client-side through
+> `next/link` (pass `clientNavigation={false}` to `DocsShell` for full page loads).

@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/ui/Badge.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/ui/Badge.tsx @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { cn } from '../libs/utils/cn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

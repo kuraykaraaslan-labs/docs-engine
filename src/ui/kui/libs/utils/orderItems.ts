@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react libs/utils/orderItems.ts @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react libs/utils/orderItems.ts @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 // Ordering for contributed items (menu items, tabs, commands, top-bar controls).
 //
 // `order` works like CSS `order`: a missing value counts as 0, lower comes first,

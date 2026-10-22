@@ -24,6 +24,8 @@ export type DocsShellProps = {
   /** Nodes for the navbar's `{ type: 'slot', name }` items: search, account menus, ... */
   navbarSlots?: Record<string, React.ReactNode>;
   mobileSidebarTitle?: string;
+  /** Sidebar links through next/link. Default true; false keeps full page loads. */
+  clientNavigation?: boolean;
   mainClassName?: string;
   children: React.ReactNode;
 };
@@ -43,6 +45,7 @@ export function DocsShell({
   compactLogo,
   navbarSlots = {},
   mobileSidebarTitle = 'Navigation',
+  clientNavigation,
   mainClassName,
   children,
 }: DocsShellProps) {
@@ -75,6 +78,9 @@ export function DocsShell({
       activeId={activeHref}
       mobileSidebarTitle={mobileSidebarTitle}
       mainClassName={mainClassName}
+      clientNavigation={clientNavigation}
+      // The strip lives in the drawer on phones; from md up the links are in the top bar.
+      sidebarHeaderClassName="md:hidden"
       sidebarHeader={
         hasSidebar && links.length ? (
           <nav aria-label="Site" className="flex flex-col">

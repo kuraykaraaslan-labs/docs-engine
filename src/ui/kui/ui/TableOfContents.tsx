@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/ui/TableOfContents.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/ui/TableOfContents.tsx @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { cn } from '../libs/utils/cn';
 import { useScrollSpy } from '../libs/hooks/useScrollSpy';

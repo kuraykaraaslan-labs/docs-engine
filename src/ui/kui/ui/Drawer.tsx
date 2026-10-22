@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/ui/Drawer.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/ui/Drawer.tsx @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 /**
  * Backwards-compatibility shim. The Drawer implementation moved to

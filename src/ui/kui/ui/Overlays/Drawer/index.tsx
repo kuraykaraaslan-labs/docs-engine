@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react modules/ui/Overlays/Drawer/index.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react modules/ui/Overlays/Drawer/index.tsx @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 'use client';
 import { cn } from '../../../libs/utils/cn';
 import { useRef } from 'react';
@@ -27,9 +27,8 @@ export type DrawerProps = {
   /** Accessible name of the close button. Default = "Close drawer". */
   closeLabel?: string;
   /**
-   * TODO M6: when true, close on Next.js route change. Drawer use case
-   * is typical: closes when the user navigates from a nav drawer.
-   * Accepted in M1 but currently a no-op (see useRouteClose stub).
+   * Close when the Next.js pathname changes while open (useRouteClose), e.g.
+   * after a link inside the overlay navigates client-side.
    */
   closeOnRouteChange?: boolean;
   /** TODO M5: respect prefers-reduced-motion when true. */

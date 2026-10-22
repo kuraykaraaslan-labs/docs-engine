@@ -1,4 +1,4 @@
-// COPIED FROM: kui-react libs/utils/polymorphic.ts @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+// COPIED FROM: kui-react libs/utils/polymorphic.ts @ fa87237 (scripts/vendor-kui.mjs, do not edit here)
 /**
  * Merges a component's own props with the native props of the element/component
  * specified by the `as` prop, with own props taking precedence on conflicts.
