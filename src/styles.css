@@ -1,0 +1,17 @@
+/*
+ * @kuraykaraaslan/docs — engine styles. Import after Tailwind in the host's
+ * global stylesheet:
+ *
+ *   @import "tailwindcss";
+ *   @import "@kuraykaraaslan/docs/theme.css";   (optional: kui design tokens, for hosts without their own)
+ *   @import "@kuraykaraaslan/docs/styles.css";
+ *
+ * The @source line is what makes Tailwind generate the utility classes this
+ * package's components use; without it they render unstyled.
+ */
+@source "./";
+
+/* AppShell scrolls <main>, which already starts below the top bar: a small gap is enough. */
+.docs-prose :is(h1, h2, h3, h4, h5, h6)[id] {
+  scroll-margin-top: 1.5rem;
+}

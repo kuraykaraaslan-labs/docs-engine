@@ -1,0 +1,276 @@
+// COPIED FROM: kui-react modules/app/AppSidebar.tsx @ 6d1138d (scripts/vendor-kui.mjs, do not edit here)
+'use client';
+import { cn } from '../libs/utils/cn';
+import { useEffect, useState } from 'react';
+import { isBrowser } from '../libs/utils/isBrowser';
+import { Badge } from '../ui/Badge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronDown, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
+export type AppSidebarNavItem = {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  /** A count (shown when above 0) or any node, e.g. a status `Badge` or a dot. */
+  badge?: number | React.ReactNode;
+  href?: string;
+};
+
+export type AppSidebarNavGroup = {
+  label?: string;
+  items: AppSidebarNavItem[];
+  collapsible?: boolean;
+  defaultExpanded?: boolean;
+};
+
+export type AppSidebarSlotRenderContext = {
+  collapsed: boolean;
+};
+
+/** Kept for existing imports; the same context now feeds `header` too. */
+export type AppSidebarFooterRenderContext = AppSidebarSlotRenderContext;
+
+type AppSidebarSlot = React.ReactNode | ((context: AppSidebarSlotRenderContext) => React.ReactNode);
+
+type AppSidebarProps = {
+  navGroups?: AppSidebarNavGroup[];
+  navItems?: AppSidebarNavItem[];
+  activeId?: string;
+  onSelect?: (id: string) => void;
+  collapsed?: boolean;
+  defaultCollapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  /** Rendered above the nav groups (below the collapse toggle), e.g. a workspace switcher. */
+  header?: AppSidebarSlot;
+  footer?: AppSidebarSlot;
+  searchable?: boolean;
+  className?: string;
+};
+
+export function AppSidebar({
+  navGroups,
+  navItems,
+  activeId,
+  onSelect,
+  collapsed,
+  defaultCollapsed = false,
+  onCollapsedChange,
+  header,
+  footer,
+  searchable = true,
+  className,
+}: AppSidebarProps) {
+  const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
+    const resolvedGroups: AppSidebarNavGroup[] = navGroups ?? (navItems ? [{ items: navItems }] : []);
+    const initial = new Set<string>();
+    for (const g of resolvedGroups) {
+      if (!g.collapsible) continue;
+      const key = g.label ?? '';
+      const containsActive = g.items.some((i) => i.id === activeId);
+      if (containsActive || g.defaultExpanded) initial.add(key);
+    }
+    return initial;
+  });
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (!isBrowser) {
+      return true;
+    }
+    return window.matchMedia('(min-width: 1024px)').matches;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsDesktop(event.matches);
+    };
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
+  const isCollapsed = collapsed ?? internalCollapsed;
+  const effectiveCollapsed = isDesktop ? isCollapsed : false;
+  const q = searchQuery.trim().toLowerCase();
+  const rawGroups: AppSidebarNavGroup[] = navGroups ?? (navItems ? [{ items: navItems }] : []);
+  const groups: AppSidebarNavGroup[] = q
+    ? rawGroups
+        .map((g) => ({ ...g, items: g.items.filter((i) => i.label.toLowerCase().includes(q)) }))
+        .filter((g) => g.items.length > 0)
+    : rawGroups;
+  const footerContent = typeof footer === 'function'
+    ? (footer as (context: AppSidebarSlotRenderContext) => React.ReactNode)({ collapsed: effectiveCollapsed })
+    : footer;
+  const headerContent = typeof header === 'function'
+    ? (header as (context: AppSidebarSlotRenderContext) => React.ReactNode)({ collapsed: effectiveCollapsed })
+    : header;
+
+  const setCollapsed = (next: boolean) => {
+    if (collapsed === undefined) {
+      setInternalCollapsed(next);
+    }
+    onCollapsedChange?.(next);
+  };
+
+  function toggleGroup(key: string) {
+    setExpandedGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }
+
+  function isGroupExpanded(group: AppSidebarNavGroup): boolean {
+    if (!group.collapsible || effectiveCollapsed) return true;
+    return expandedGroups.has(group.label ?? '');
+  }
+
+  return (
+    <div
+      data-collapsed={effectiveCollapsed ? 'true' : 'false'}
+      className={cn(
+        'flex flex-col flex-1 min-h-0 transition-all duration-200',
+        effectiveCollapsed ? 'w-full lg:w-14' : 'w-full lg:w-56',
+        className
+      )}
+    >
+      <div className={cn('hidden lg:flex items-center px-2 py-2 border-b border-border shrink-0', effectiveCollapsed ? 'justify-center' : 'justify-end')}>
+        <button
+          type="button"
+          onClick={() => setCollapsed(!isCollapsed)}
+          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          className="p-1.5 rounded text-text-secondary hover:text-text-primary hover:bg-surface-overlay transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus"
+        >
+          <FontAwesomeIcon icon={faChevronLeft} className={cn('w-4 h-4 transition-transform', isCollapsed ? 'rotate-180' : '')} aria-hidden="true" />
+        </button>
+      </div>
+
+      {headerContent != null && (
+        <div className={cn('shrink-0 border-b border-border px-2 py-2', effectiveCollapsed && 'flex justify-center')}>
+          {headerContent}
+        </div>
+      )}
+
+      {searchable && !effectiveCollapsed && (
+        <div className="px-3 py-2 border-b border-border shrink-0">
+          <div className="relative">
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-text-disabled" aria-hidden="true" />
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Escape' && setSearchQuery('')}
+              placeholder="Search…"
+              autoComplete="off"
+              aria-label="Search navigation"
+              className="w-full rounded-md border border-border bg-surface-base pl-7 pr-3 py-1.5 text-xs text-text-primary placeholder:text-text-disabled focus:outline-none focus:ring-2 focus:ring-border-focus"
+            />
+          </div>
+        </div>
+      )}
+
+      <nav
+        className="flex-1 min-h-0 overflow-y-auto px-2 py-3 space-y-4 sidebar-scrollbar-hover"
+        // Icon-only mode is too narrow to spare a reserved scrollbar gutter: the
+        // `scrollbar-gutter: stable` of .sidebar-scrollbar-hover would push the centered
+        // icons left, so the collapsed nav drops the reservation.
+        style={effectiveCollapsed ? { scrollbarGutter: 'auto' } : undefined}
+        aria-label="Sidebar navigation"
+      >
+        {groups.map((group, gi) => {
+          const groupKey = group.label ?? String(gi);
+          const expanded = isGroupExpanded(group);
+          const hasActive = group.items.some((i) => i.id === activeId);
+          return (
+          <div key={groupKey}>
+            {group.label && !effectiveCollapsed && (
+              group.collapsible ? (
+                <button
+                  type="button"
+                  onClick={() => toggleGroup(groupKey)}
+                  aria-expanded={expanded}
+                  className={cn(
+                    'w-full flex items-center justify-between px-3 py-1 rounded-md mb-1 transition-colors',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus',
+                    hasActive ? 'text-text-primary' : 'text-text-disabled hover:text-text-secondary'
+                  )}
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-widest">{group.label}</span>
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    className={cn('w-3 h-3 transition-transform duration-200', expanded ? 'rotate-0' : '-rotate-90')}
+                    aria-hidden="true"
+                  />
+                </button>
+              ) : (
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-text-disabled px-3 mb-1">
+                  {group.label}
+                </p>
+              )
+            )}
+            {expanded && (
+            <div className="space-y-0.5">
+              {group.items.map((item) => {
+                const itemClassName = cn(
+                  'w-full flex items-center gap-2.5 rounded-lg text-sm transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus',
+                  effectiveCollapsed ? 'justify-center px-2 py-2' : 'px-3 py-2 text-left',
+                  item.id === activeId
+                    ? 'bg-primary-subtle text-primary font-medium'
+                    : 'text-text-secondary hover:text-text-primary hover:bg-surface-overlay'
+                );
+                const itemContent = (
+                  <>
+                    {item.icon && <span aria-hidden="true" className="shrink-0 w-5 text-center text-[15px] leading-none">{item.icon}</span>}
+                    {!effectiveCollapsed && <span className="flex-1 truncate">{item.label}</span>}
+                    {!effectiveCollapsed && (typeof item.badge === 'number'
+                      ? item.badge > 0 && <Badge variant="primary" size="sm">{item.badge}</Badge>
+                      : item.badge != null && item.badge !== false && <span className="shrink-0">{item.badge}</span>
+                    )}
+                  </>
+                );
+                return item.href ? (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    aria-current={item.id === activeId ? 'page' : undefined}
+                    title={effectiveCollapsed ? item.label : undefined}
+                    className={itemClassName}
+                  >
+                    {itemContent}
+                  </a>
+                ) : (
+                  <button
+                    key={item.id}
+                    type="button"
+                    aria-current={item.id === activeId ? 'page' : undefined}
+                    title={effectiveCollapsed ? item.label : undefined}
+                    onClick={() => onSelect?.(item.id)}
+                    className={itemClassName}
+                  >
+                    {itemContent}
+                  </button>
+                );
+              })}
+            </div>
+            )}
+          </div>
+          );
+        })}
+      </nav>
+
+      {footerContent != null && (
+        <div className={cn('border-t border-border shrink-0', effectiveCollapsed ? 'flex justify-center px-2 py-3' : '')}>
+          {footerContent}
+        </div>
+      )}
+    </div>
+  );
+}

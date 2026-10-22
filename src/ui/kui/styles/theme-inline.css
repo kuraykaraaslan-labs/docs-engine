@@ -1,0 +1,47 @@
+/* COPIED FROM: kui-react app/globals.css (@theme inline block) @ 6d1138d (scripts/vendor-kui.mjs, do not edit here) */
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-primary:         var(--primary);
+  --color-primary-hover:   var(--primary-hover);
+  --color-primary-active:  var(--primary-active);
+  --color-primary-subtle:  var(--primary-subtle);
+  --color-primary-fg:      var(--primary-fg);
+
+  --color-secondary:        var(--secondary);
+  --color-secondary-hover:  var(--secondary-hover);
+  --color-secondary-fg:     var(--secondary-fg);
+  --color-secondary-active: var(--secondary-active);
+  --color-secondary-subtle: var(--secondary-subtle);
+
+  --color-surface-base:    var(--surface-base);
+  --color-surface-raised:  var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-sunken:  var(--surface-sunken);
+
+  --color-text-primary:    var(--text-primary);
+  --color-text-secondary:  var(--text-secondary);
+  --color-text-disabled:   var(--text-disabled);
+  --color-text-inverse:    var(--text-inverse);
+
+  --color-border:          var(--border);
+  --color-border-strong:   var(--border-strong);
+  --color-border-focus:    var(--border-focus);
+
+  --color-success:         var(--success);
+  --color-success-subtle:  var(--success-subtle);
+  --color-success-fg:      var(--success-fg);
+
+  --color-warning:         var(--warning);
+  --color-warning-subtle:  var(--warning-subtle);
+  --color-warning-fg:      var(--warning-fg);
+
+  --color-error:           var(--error);
+  --color-error-subtle:    var(--error-subtle);
+  --color-error-fg:        var(--error-fg);
+
+  --color-info:            var(--info);
+  --color-info-subtle:     var(--info-subtle);
+  --color-info-fg:         var(--info-fg);
+}

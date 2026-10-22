@@ -1,0 +1,27 @@
+/*
+ * Default design tokens (kui-react) for hosts that bring none. A host with its
+ * own token set (light/dark CSS variables + an `@theme inline` mapping) skips
+ * this file and imports only styles.css.
+ */
+@import "./ui/kui/styles/tokens.css";
+@import "./ui/kui/styles/theme-inline.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  background: var(--surface-base);
+  color: var(--text-primary);
+}
+
+/* highlight.js token colors mapped onto the design tokens, so code follows light/dark. */
+.hljs { display: block; overflow-x: auto; background: var(--surface-sunken); color: var(--text-primary); }
+.hljs-comment, .hljs-quote { color: var(--text-disabled); font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-literal, .hljs-doctag { color: var(--secondary); }
+.hljs-string, .hljs-attr, .hljs-template-tag, .hljs-template-variable, .hljs-addition { color: var(--success); }
+.hljs-number, .hljs-symbol, .hljs-bullet { color: var(--warning); }
+.hljs-title, .hljs-title.function_, .hljs-title.class_, .hljs-section { color: var(--primary); font-weight: 600; }
+.hljs-type, .hljs-built_in, .hljs-class .hljs-title { color: var(--info); }
+.hljs-variable, .hljs-name, .hljs-attribute { color: var(--text-primary); }
+.hljs-deletion { color: var(--error); }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }
