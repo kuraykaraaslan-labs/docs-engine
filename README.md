@@ -18,8 +18,11 @@ mount the engine on a route of your own app. The chrome is built from
 ## Quick start
 
 ```bash
-npm install github:kuraykaraaslan/docs#<commit>
+npm install github:kuraykaraaslan-labs/docs-engine#<commit>
 ```
+
+The repository is `kuraykaraaslan-labs/docs-engine`; the package it installs, and the
+name you import from, is `@kuraykaraaslan/docs`.
 
 ```ts
 // next.config.ts

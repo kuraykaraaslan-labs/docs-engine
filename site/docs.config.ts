@@ -12,7 +12,7 @@ export default defineDocsConfig({
     items: [
       { label: 'Docs', href: '/docs' },
       { label: 'Configuration', href: '/docs/reference/configuration' },
-      { label: 'GitHub', href: 'https://github.com/kuraykaraaslan/docs', position: 'right' },
+      { label: 'GitHub', href: 'https://github.com/kuraykaraaslan-labs/docs-engine', position: 'right' },
     ],
   },
   footer: {
@@ -27,7 +27,7 @@ export default defineDocsConfig({
       id: 'docs',
       dir: 'content/docs',
       routeBasePath: 'docs',
-      editUrl: 'https://github.com/kuraykaraaslan/docs/edit/main/site/content/docs',
+      editUrl: 'https://github.com/kuraykaraaslan-labs/docs-engine/edit/main/site/content/docs',
     },
   ],
 });

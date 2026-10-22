@@ -6,7 +6,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kuraykaraaslan/docs.git"
+    "url": "git+https://github.com/kuraykaraaslan-labs/docs-engine.git"
   },
   "sideEffects": [
     "*.css"
@@ -82,5 +82,9 @@
   },
   "workspaces": [
     "site"
-  ]
+  ],
+  "homepage": "https://github.com/kuraykaraaslan-labs/docs-engine#readme",
+  "bugs": {
+    "url": "https://github.com/kuraykaraaslan-labs/docs-engine/issues"
+  }
 }

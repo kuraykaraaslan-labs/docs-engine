@@ -6,8 +6,11 @@ The package ships TypeScript source and is compiled by your app, so pin a commit
 and let Next.js transpile it:
 
 ```bash
-npm install github:kuraykaraaslan/docs#<commit>
+npm install github:kuraykaraaslan-labs/docs-engine#<commit>
 ```
+
+The repository is `kuraykaraaslan-labs/docs-engine`; the package it installs, and the
+name you import from, is `@kuraykaraaslan/docs`.
 
 ```ts title="next.config.ts"
 const nextConfig = {
