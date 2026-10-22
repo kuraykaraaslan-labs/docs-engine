@@ -117,7 +117,8 @@ export const docsConfigSchema = z
       })
       .strict()
       .optional(),
-    collections: z.array(collectionSchema).min(1),
+    /** Markdown collections. Empty for a host that uses only the shell and the pipeline. */
+    collections: z.array(collectionSchema).default([]),
     sidebars: z.record(z.array(sidebarItemSchema)).default({}),
     toc: z
       .object({

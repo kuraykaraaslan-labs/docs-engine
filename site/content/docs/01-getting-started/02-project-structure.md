@@ -28,3 +28,9 @@ app/docs/[[...slug]]/page.tsx
 > `content` and `markdown` read the filesystem and bundle `yaml` and `zod`. Import
 > them from a `'use client'` module with `import type` only, or the parser ends up
 > in the browser bundle.
+
+> [!CAUTION] Keep the config on the server
+> `defineDocsConfig` validates with zod when `docs.config.ts` is imported. Read the
+> config in Server Components and pass the values a client component needs as
+> props; importing `docs.config.ts` from a `'use client'` file ships zod to the
+> browser.

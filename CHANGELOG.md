@@ -4,6 +4,13 @@ All notable changes to this project will be documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- `collections` is optional (default `[]`), for hosts that use only the shell and the
+  markdown pipeline.
+
 ## [0.1.0] - 2026-10-22
 
 ### Added

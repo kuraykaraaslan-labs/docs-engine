@@ -37,6 +37,8 @@ else that needs code. `order` positions an item within its side.
 
 ## `collections`
 
+Optional (default `[]`): a host can use only the shell and the markdown pipeline.
+
 | Key | Default | |
 |---|---|---|
 | `id` | required | `a-z0-9-` |
